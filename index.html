@@ -1,0 +1,302 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>新型冠状病毒检验结果报告单</title>
+    <script type='text/javascript' src='/Html/user/dist/js/jquery-3.3.1.min.js' charset='utf-8'></script>
+    <script src="/Html/user/js/jquery.form.js"></script>
+
+
+    <script>
+        $(function () {
+            //$("#aDownload").attr("href", "../../UserFiles/964d31a5fb2a4ae9b002af0903d7e23520220227015555.pdf");
+
+            var ua = navigator.userAgent.toLowerCase();
+            if (ua.match(/MicroMessenger/i) == "micromessenger") {
+                $("#style2").html("");
+                if (navigator.userAgent.toLowerCase().indexOf('miniprogram') != -1) {
+                    $("#btnDowmload").html("");
+                } else {
+
+                }
+                //return true; // 微信浏览器
+            }
+            //else {
+            //    $("#style1").html("");
+            //    $("#btnDowmload").html("");
+            //    dowmloadPdf();
+
+            //    //$("#aDownload").attr("href", "../../Html/aaa.pdf");
+
+            //    //return false; // 非微信浏览器
+            //}
+
+            //var u = navigator.userAgent;
+            //var app = navigator.appVersion;
+            //var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
+            //var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+            //if (isAndroid) {
+
+            //    //alert("安卓机！");
+            //    //$("#aDownload").removeAttr("href");
+            //    $("#aDownload").attr("href", "../../UserFiles/aaa.pdf");
+            //}
+            //if (isIOS) {
+            //    //$("#aDownload").removeAttr("href");
+            //    $("#aDownload").attr("href", "../../Html/aaa.pdf");
+            //}
+        });
+
+        function dowmloadPdf() {
+            var form = $('<form>');
+            form.attr('style', 'display:none');
+            form.attr('target', '');
+            form.attr('method', 'post');
+            form.attr('action', '/File/DownloadReport?path=' + escape(window.location.href) + '&fileName=964d31a5fb2a4ae9b002af0903d7e23520220227015555.pdf');
+            form.attr('</form>');
+            $('body').append(form);
+            form.submit();
+        }
+
+        function downloadClick() {
+            //$.showPreloader();
+            $.ajax({
+                url: "/Report/DownloadReport",
+                type: "POST",
+                async: false,
+                data: {
+                    path: window.location.href,
+                    fileName: '964d31a5fb2a4ae9b002af0903d7e23520220227015555.pdf',
+                },
+                contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    //$.hidePreloader();
+                    if (data != null && data.Status == "SUCCESS") {
+                        window.location.href = "../../UserFiles/964d31a5fb2a4ae9b002af0903d7e23520220227015555.pdf";
+                    } else {
+                        $.toast("生成PDF失败！");
+                    }
+                },
+                error: function (e) {
+                    //$.hidePreloader();
+                    $.toast("保存数据失败！");
+                }
+            });
+            //dowmloadPdf();
+            //try {
+            //    var obj = new ActiveXObject("wscript.shell");
+            //    if (obj) {
+            //        obj.Run("\"" + filename + "\"", 1, false);
+            //        obj = null;
+            //    }
+            //} catch (e) {
+            //    alert("请确定是否存在该盘符或文件");
+            //}
+
+            //var u = navigator.userAgent;
+            //var app = navigator.appVersion;
+            //var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
+            //var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+            //if (isAndroid) {
+            //    //alert("安卓机！");
+            //}
+            //if (isIOS) {
+            //    //$.toast("");
+            //    //location.href = window.location.href;
+            //    //window.open(window.location.href);
+            //}
+        }
+    </script>
+</head>
+<body style="margin:20px 30px;">
+    <style id="style1">
+        body {
+            font-size: 18px;
+        }
+
+        th {
+            text-align: left;
+        }
+
+        th, td {
+            font-size: 26px;
+            line-height: 3rem;
+        }
+
+        ul {
+            list-style-type: decimal;
+        }
+
+        li {
+            line-height: 1.5rem;
+            font-size: 20px;
+        }
+
+        .p-title {
+            text-align: center;
+            font-size: 40px;
+            font-weight: bold;
+            margin: 30px 0px;
+        }
+
+        .p-red {
+            color: red;
+            font-size: 22px;
+        }
+    </style>
+    <style id="style2">
+        body {
+            font-size: 12px;
+        }
+
+        th {
+            text-align: left;
+        }
+
+        th, td {
+            font-size: 16px;
+            line-height: 3rem;
+        }
+
+        ul {
+            list-style-type: decimal;
+        }
+
+        .p-title {
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+            margin: 30px 0px;
+        }
+
+        .p-red {
+            color: red;
+            font-size: 16px;
+        }
+    </style>
+    <div>
+        <table>
+            <tr>
+                    <th>检测机构:</th>
+                    <td>北方人民医院</td>
+            </tr>
+        </table>
+        <table width="100%">
+            <tr>
+                <td><div class="p-title">新型冠状病毒核酸检验结果报告单</div></td>
+                <td id="btnDowmload">
+                    
+                    
+                </td>
+            </tr>
+        </table>
+        <hr />
+        <table width="100%">
+            <tr>
+                <th width="15%">姓名:</th>
+                <td width="35%">王英辉</td>
+                <th width="15%">证件号码:</th>
+                <td width="35%">230104197206040629</td>
+            </tr>
+            <tr>
+                <th>性别:</th>
+                <td>女</td>
+                <th>年龄:</th>
+                <td>49</td>
+            </tr>
+            <tr>
+                <th>采集时间:</th>
+                <td>
+2022-02-25 14:28:52                </td>
+                <th>条形码:</th>
+                <td>40000107104295</td>
+            </tr>
+            <tr>
+
+                <th>样本类型:</th>
+                    <td>咽拭子</td>
+                <th>其他样本:</th>
+                <td></td>
+            </tr>
+            <tr>
+                <th>采样单位:</th>
+                <td>重庆北部妇产医院</td>
+
+                <th>联系电话:</th>
+                <td>13704881972</td>
+            </tr>
+        </table>
+        <hr />
+        <table><tr><td><strong>检测结果</strong></td></tr></table>
+        <hr />
+        <table width="100%">
+            <tr>
+                <td width="50%" style="text-align:left"><strong>检验项目</strong></td>
+                <td width="50%" style="text-align:left"><strong>结果</strong></td>
+            </tr>
+
+                <tr>
+                    <td style="text-align:left">新冠病毒核酸检测</td>
+                            <td style="text-align:left">阴性</td>                 </tr>
+                                </table>
+
+        <hr />
+        <table width="100%">
+            <tr><td><strong>结果解释</strong></td></tr>
+            <tr><td>1、本实验室使用新型冠状病毒 2019-nCoV 核酸检测试剂盒（荧光 PCR 法）检测技术，该方法可用于人咽拭子的新型冠状病毒核酸定性检测</td></tr>
+            <tr><td>2、本试剂盒同时检测新型冠状病毒的 ORF1ab 基因和 N 基因</td></tr>
+            <tr><td>3、不合理的样本采集、运输，样本中病毒浓度过低均有可能导致假阴结果</td></tr>
+        </table>
+        <hr />
+        <table width="100%">
+            <tr>
+                <td class="p-red">
+                    注：                        <span>此报告仅对送检样本负责！结果仅供医生参考。如果对检验结果有疑问，请于收到报告后 7 个工作日内与我们联系,谢谢合作！</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="p-red"></td>
+            </tr>
+        </table>
+        <div>
+
+        </div>
+        <hr />
+        <br />
+        <table width="100%">
+            <tr>
+                <td width="75%">
+                    <table width="100%">
+                        <tr>
+                            <th nowrap>报告时间:</th>
+                            <td nowrap>
+                                2022-02-26
+                            </td>
+                        </tr>
+                        <tr>
+                            <th width="80px" nowrap>检测机构:</th>
+                            <td width="400px" style="text-align:left" nowrap>重庆北部妇产医院</td>
+                        </tr>
+                            <tr>
+                                <th nowrap>联系电话:</th>
+                                <td style="text-align:left" nowrap>0451-82675173</td>
+                            </tr>
+                            <tr>
+                                <th style="text-align:left" nowrap>机构地址:</th>
+                                <td style="text-align:left" nowrap>重庆市两江新区翠渝路68号</td>
+                            </tr>
+                    </table>
+                </td>
+                <td align="left">
+                                <span style="position:absolute"><img src="1.png" width="200" style="position:relative;top:-120px;left:10px" /></span>
+
+                </td>
+            </tr>
+        </table>
+        <br />
+        <hr />
+    </div>
+</body>
+</html>
